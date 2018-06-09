@@ -1,0 +1,103 @@
+---
+title: "Monthly Deaths from Lung Diseases in the UK"
+author: "Ihar Kukharchuk"
+date: "June 9, 2018"
+output:
+    ioslides_presentation:
+        keep_md: true
+---
+
+```{r setup, include=FALSE}
+library(plotly)
+library(xts)
+```
+
+## Overview
+
+Performation of exploratory analysis for three time series giving the monthly
+deaths from bronchitis, emphysema and asthma in the UK, 1974–1979, both sexes
+(ldeaths), males (mdeaths) and females (fdeaths).
+
+The considering dataset is available in [R datasets][1] package with the
+following [description][2].
+
+[1]: http://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html
+[2]: http://stat.ethz.ch/R-manual/R-devel/library/datasets/html/UKLungDeaths.html
+
+## Brief Exploratory Analysis
+
+```{r}
+ldeaths
+summary(ldeaths)
+```
+
+## Deaths Over the Years - Code Part 1
+
+```{r}
+death.df <- data.frame(date = index(ldeaths),
+                       year = round(index(ldeaths)),
+                       month = c(1:12),
+                       all = as.numeric(ldeaths),
+                       male = as.numeric(mdeaths),
+                       female = as.numeric(fdeaths))
+date <- paste0("Date: ", month.abb[death.df$month],
+               ", ", death.df$year, "<br>")
+death.ht_all <- paste0(date, "Count: ", death.df$all)
+death.ht_male <- paste0(date, "Count: ", death.df$male)
+death.ht_female <- paste0(date, "Count: ", death.df$female)
+```
+
+## Deaths Over the Years - Code Part 2
+
+```{r}
+death.plot <- plot_ly(death.df, x = ~date) %>%
+        add_lines(y = ~all,
+                  line = list(color = "#ff0000", width = 1),
+                  hoverinfo = "text", text = death.ht_all,
+                  name = "All") %>%
+        add_lines(y = ~male,
+                  line = list(color = "#00ff00", width = 1),
+                  hoverinfo = "text", text = death.ht_male,
+                  name = "Male") %>%
+        add_lines(y = ~female,
+                  line = list(color = "#0000ff", width = 1),
+                  hoverinfo = "text", text = death.ht_female,
+                  name = "Female") %>%
+        layout(xaxis = list(title = "timeline"),
+               yaxis = list(title = "count"))
+```
+
+## Deaths Over the Years - Graph
+
+```{r, echo = FALSE}
+death.plot
+```
+
+## Deaths Summary Per Month - Code
+
+```{r}
+df <- tapply(death.df$all, death.df$month, FUN = sum)
+df <- data.frame(index = c(1:12), all = df)
+death.monthplot <- plot_ly(df, x = ~month.abb[index], y = ~all) %>%
+        layout(xaxis = list(categoryorder = "array",
+                            categoryarray = df$index,
+                            title = "month"),
+               yaxis = list(title = "count"))
+```
+
+## Deaths Summary Per Month - Graph
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+death.monthplot
+```
+
+## Summary
+
+- the amount of deaths from lung deseases in period 1974-1980 almost the same
+- the biggest amount of deaths happened during first three months of each year
+
+## References
+
+* [Monthly Deaths from Lung Diseases in the UK (UKLungDeathshttp dataset)][3]
+
+[3]: http://stat.ethz.ch/R-manual/R-devel/library/datasets/html/UKLungDeaths.html
