@@ -1,0 +1,23 @@
+---
+title: "The Geographical Centre Of Europe"
+author: "Ihar Kukharchuk"
+date: "June 08, 2018"
+output:
+  html_document:
+    keep_md: yes
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### The Geographical Centre Of Europe
+
+```{r}
+library(leaflet)
+geocenter_of_europe <- leaflet() %>%
+        addTiles() %>%
+        addMarkers(lat = 54.9, lng = 25.316667, popup = "The Geographical Centre Of Europe")
+geocenter_of_europe
+```
