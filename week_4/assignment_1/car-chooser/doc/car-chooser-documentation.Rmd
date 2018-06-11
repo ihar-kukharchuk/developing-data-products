@@ -1,0 +1,27 @@
+---
+title: "Car Chooser Application"
+output: html_document
+---
+
+### Overview
+
+This application is intended to be used for helping in choosing the car
+procedure based on two characteristics:
+
+* horsepowers per 1000 pounds
+* miles per galon
+
+### Instructions for client
+
+1. choose 'horsepower per 1000 pounds' using the slider with the same name
+2. choose 'miles per galon' using the slider with the same name
+3. plot contains all available cars:
+    * the *blue* dots show all cars except picked out
+    * three *orange* dots show suggested car based on slider position
+4. the spreadsheet at the top right corner shows suggested cars to buy based on
+sliders positions, also these cars are represented by *orange* dots on a plot
+below
+
+### References
+
+- mtcars dataset from 'data' library is used for considering shiny application
