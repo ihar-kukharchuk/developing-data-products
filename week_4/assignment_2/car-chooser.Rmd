@@ -8,7 +8,8 @@ output: slidy_presentation
 ### Overview
 
 It is a supportive presentation for 'Car Chooser' project which is intended to
-be used for helping in choosing the car procedure based on two characteristics:
+be used for helping in procedure of choosing the car based on two
+characteristics:
 
 * horsepowers per 1000 pounds
 * miles per galon
@@ -43,6 +44,7 @@ abline(lm(mpg ~ hpp, data = mt_cars))
 This application was developed during the coursera.org "Developing Data
 Products" course project assignment (Johns Hopkins University).
 
-It is possible to find considered application on www.shinyapps.io.
+- application: https://ihar-kukharchuk.shinyapps.io/car-chooser/
+- source code: https://github.com/ihar-kukharchuk/developing-data-products/tree/master/week_4/assignment_1/car-chooser
 
 Thanks for attention.
